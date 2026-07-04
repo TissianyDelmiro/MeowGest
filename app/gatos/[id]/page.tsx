@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { buscarGatoPorId, buscarHistoricoCheckins } from "@/lib/supabase/gatos";
 import { CheckinButton } from "@/components/gatos/CheckinButton";
+import { ShareButton } from "@/components/gatos/ShareButton";
 
 export const dynamic = "force-dynamic";
 
@@ -81,8 +82,12 @@ export default async function PerfilGatoPage({ params }: { params: { id: string 
         </p>
       )}
 
-      <div className="mb-6">
+      <div className="mb-3">
         <CheckinButton catId={gato.id} nomeGato={gato.name} jaViuHoje={jaViuHoje} />
+      </div>
+
+      <div className="mb-6">
+        <ShareButton gato={gato} />
       </div>
 
       <dl className="bg-white rounded-card p-4 space-y-3 mb-6">
