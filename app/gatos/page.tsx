@@ -16,9 +16,83 @@ export default async function GatosPage() {
     erroCarregamento = true;
   }
 
+  // Gerar lista de alertas dinâmicos
+  const alertas: {
+    gatoId: string;
+    texto: string;
+    tipo: "urgente" | "aviso";
+  }[] = [];
+
+  gatos.forEach((gato) => {
+    // 1. Não visto há 2+ dias (Urgente)
+    if (gato.dias_sem_checkin !== null && gato.dias_sem_checkin >= 2) {
+      alertas.push({
+        gatoId: gato.id,
+        texto: `👀 ${gato.name} não é visto há ${gato.dias_sem_checkin} dias`,
+        tipo: "urgente",
+      });
+    }
+
+    // 2. Vacinas (Vencida ou Próxima)
+    if (gato.last_vaccine_date) {
+      const dataLimite = new Date(gato.last_vaccine_date);
+      dataLimite.setFullYear(dataLimite.getFullYear() + 1);
+      dataLimite.setHours(0, 0, 0, 0);
+
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+
+      const diffMs = dataLimite.getTime() - hoje.getTime();
+      const diasParaVencer = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diasParaVencer < 0) {
+        alertas.push({
+          gatoId: gato.id,
+          texto: `⚠️ ${gato.name} está com a vacina vencida!`,
+          tipo: "urgente",
+        });
+      } else if (diasParaVencer <= 30) {
+        alertas.push({
+          gatoId: gato.id,
+          texto: `📅 A vacina de ${gato.name} vence em ${diasParaVencer} dias`,
+          tipo: "aviso",
+        });
+      }
+    }
+  });
+
+  // Ordenar alertas: urgentes primeiro
+  alertas.sort((a, b) => {
+    if (a.tipo === "urgente" && b.tipo === "aviso") return -1;
+    if (a.tipo === "aviso" && b.tipo === "urgente") return 1;
+    return 0;
+  });
+
   return (
     <main className="pb-24 max-w-md mx-auto">
       <div className="px-4 py-4">
+        {/* Painel de Alertas */}
+        {alertas.length > 0 && (
+          <div className="mb-6 space-y-2" role="region" aria-label="Alertas de saúde e check-in">
+            {alertas.map((alerta, index) => (
+              <Link
+                key={index}
+                href={`/gatos/${alerta.gatoId}`}
+                className={`block p-4 rounded-card border shadow-sm transition-all hover:scale-[1.01] ${
+                  alerta.tipo === "urgente"
+                    ? "bg-red-50/90 border-red-200 text-red-900 hover:bg-red-100"
+                    : "bg-amber-50/90 border-amber-200 text-amber-900 hover:bg-amber-100"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-semibold leading-snug">{alerta.texto}</span>
+                  <span className="text-xs font-bold shrink-0 opacity-80">Ver perfil →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
         <div className="mb-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full">
             {gatos.length} {gatos.length === 1 ? "gato" : "gatos"}
