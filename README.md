@@ -4,7 +4,8 @@
 
 MeowGest is a web app built for the **#hackthekitty** hackathon — a themed competition for World Cat Domination Day. The app was born from real interviews with independent cat colony caretakers who had no tools to stay organized.
 
-🔗 **Live Demo:** _coming soon_
+🔗 **Video Demo:** _coming soon_
+    **Vercel:**  meow-gest.vercel.app
 
 ---
 
