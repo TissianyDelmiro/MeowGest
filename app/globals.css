@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-creme-50 text-stone-800 font-body;
+  }
+
+  h1, h2, h3 {
+    @apply font-display text-stone-900;
+  }
+
+  /* Foco de teclado sempre visível — requisito de acessibilidade,
+     nunca remova o outline sem colocar um substituto igualmente visível. */
+  :focus-visible {
+    outline: 3px solid theme("colors.terracota.500");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Respeita usuários que pediram menos animação no sistema */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
