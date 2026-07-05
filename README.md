@@ -9,7 +9,8 @@ MeowGest is a web app built for the **#hackthekitty** hackathon — a themed com
 🔗 **Vercel:** https://meow-gest.vercel.app/login
     
 
-<img width="1407" height="768" alt="meowgest_projeto" src="https://github.com/user-attachments/assets/d78e6a01-7aad-4a1c-818d-a82e93517095" />
+<img width="1407" height="768" alt="meowgest_projeto" src="https://github.com/user-attachments/assets/2b4d25ea-8301-4eb1-9863-f4a7ae8b803f" />
+
 
 ---
 
