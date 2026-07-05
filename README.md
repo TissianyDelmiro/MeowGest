@@ -10,6 +10,8 @@ MeowGest is a web app built for the **#hackthekitty** hackathon — a themed com
     
 
 <img width="1407" height="768" alt="meowgest_projeto" src="https://github.com/user-attachments/assets/2b4d25ea-8301-4eb1-9863-f4a7ae8b803f" />
+<img width="1407" height="768" alt="meowgestCards" src="https://github.com/user-attachments/assets/7ecd59f4-04dd-4b83-a903-e76a2fa5327b" />
+
 
 
 ---
